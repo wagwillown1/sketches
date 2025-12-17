@@ -54,6 +54,7 @@ function initMarginCalculator() {
     const profitInput = calculator.querySelector('[data-field="profit"]');
     const profitAmount = calculator.querySelector('[data-output="profit-amount"]');
     const statusLabel = calculator.querySelector('[data-output="input-status"]');
+    const resetButton = calculator.querySelector('[data-action="reset-calculator"]');
 
     const defaultStatus = statusLabel?.textContent?.trim() ||
       'Enter any two fields to calculate the rest.';
@@ -119,6 +120,14 @@ function initMarginCalculator() {
 
     [costInput, saleInput, marginInput, profitInput].forEach((input) => {
       input?.addEventListener('input', () => calculate(input));
+    });
+
+    resetButton?.addEventListener('click', () => {
+      [costInput, saleInput, marginInput, profitInput].forEach((input) => {
+        if (input) input.value = '';
+      });
+      calculate();
+      costInput?.focus();
     });
 
     calculate();
