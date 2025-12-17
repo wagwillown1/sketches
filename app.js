@@ -40,7 +40,7 @@ function initMarginCalculator() {
   const setValue = (input, value, { skipIfActive = false } = {}) => {
     if (!input) return;
     if (skipIfActive && document.activeElement === input) return;
-    if (value === null || Number.isNaN(value)) {
+    if (!Number.isFinite(value)) {
       input.value = '';
       return;
     }
