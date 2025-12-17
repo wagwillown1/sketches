@@ -67,7 +67,7 @@
             <span>Cost price</span>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
-              <input id="cost-price" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+              <input data-field="cost" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
             </div>
             <small class="field-hint">Supplier or production cost.</small>
           </label>
@@ -75,14 +75,14 @@
             <span>Sale price</span>
             <div class="input-wrap">
               <span class="input-prefix">$</span>
-              <input id="sale-price" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+              <input data-field="sale" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
             </div>
             <small class="field-hint">What the customer pays.</small>
           </label>
           <label class="calc-field">
             <span>Margin %</span>
             <div class="input-wrap">
-              <input id="margin-percent" type="number" min="0" max="100" step="0.01" placeholder="0.00" inputmode="decimal" />
+              <input data-field="margin" type="number" min="0" max="100" step="0.01" placeholder="0.00" inputmode="decimal" />
               <span class="input-suffix">%</span>
             </div>
             <small class="field-hint">Profit ÷ sale price.</small>
@@ -90,7 +90,7 @@
           <label class="calc-field">
             <span>Profit %</span>
             <div class="input-wrap">
-              <input id="profit-percent" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+              <input data-field="profit" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
               <span class="input-suffix">%</span>
             </div>
             <small class="field-hint">Profit ÷ cost.</small>
@@ -99,11 +99,11 @@
         <div class="calc-summary">
           <div class="summary-item">
             <span class="label">Profit</span>
-            <span class="value" id="profit-amount">—</span>
+            <span class="value" data-output="profit-amount">—</span>
           </div>
           <div class="summary-item">
             <span class="label">Inputs</span>
-            <span class="value" id="input-status">Waiting for two values…</span>
+            <span class="value" data-output="input-status">Waiting for two values…</span>
           </div>
         </div>
         <p class="calc-note">Tip: enter a cost and desired margin to instantly see the sale price, or enter a sale price and margin to see how low you can go on cost.</p>

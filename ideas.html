@@ -79,37 +79,46 @@
       <div class="section-header">
         <h2>Margin calculator</h2>
         <p>Enter a cost or sale price and a margin or profit percent to complete the rest. For a dedicated view, open it on the <a class="inline-link" href="./tools.html#margin-calculator">Tools page</a>.</p>
-        <p>Enter a cost or sale price and a margin or profit percent to complete the rest.</p>
       </div>
       <div class="calculator-grid">
         <label class="calc-field">
           <span>Cost price</span>
           <div class="input-wrap">
             <span class="input-prefix">$</span>
-            <input id="cost-price" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+            <input data-field="cost" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
           </div>
         </label>
         <label class="calc-field">
           <span>Sale price</span>
           <div class="input-wrap">
             <span class="input-prefix">$</span>
-            <input id="sale-price" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+            <input data-field="sale" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
           </div>
         </label>
         <label class="calc-field">
           <span>Margin %</span>
           <div class="input-wrap">
-            <input id="margin-percent" type="number" min="0" max="100" step="0.01" placeholder="0.00" inputmode="decimal" />
+            <input data-field="margin" type="number" min="0" max="100" step="0.01" placeholder="0.00" inputmode="decimal" />
             <span class="input-suffix">%</span>
           </div>
         </label>
         <label class="calc-field">
           <span>Profit %</span>
           <div class="input-wrap">
-            <input id="profit-percent" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+            <input data-field="profit" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
             <span class="input-suffix">%</span>
           </div>
         </label>
+      </div>
+      <div class="calc-summary">
+        <div class="summary-item">
+          <span class="label">Profit</span>
+          <span class="value" data-output="profit-amount">—</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Inputs</span>
+          <span class="value" data-output="input-status">Enter any two fields to calculate the rest.</span>
+        </div>
       </div>
       <p class="calc-note">Margin % = Profit ÷ Sale price. Profit % = Profit ÷ Cost. Enter any two fields to calculate the rest.</p>
     </section>
