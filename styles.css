@@ -417,6 +417,12 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+.calc-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 0.25rem;
+}
+
 .summary-item {
   display: flex;
   align-items: center;
