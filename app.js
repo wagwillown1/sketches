@@ -180,7 +180,17 @@ function initMarginCalculator() {
     };
 
     [costInput, saleInput, marginInput, profitInput].forEach((input) => {
-      input?.addEventListener('input', () => calculate(input));
+      ['input', 'keyup'].forEach((eventName) => {
+        input?.addEventListener(eventName, () => calculate(input));
+      });
+    });
+
+    resetButton?.addEventListener('click', () => {
+      [costInput, saleInput, marginInput, profitInput].forEach((input) => {
+        if (input) input.value = '';
+      });
+      calculate();
+      costInput?.focus();
     });
 
     resetButton?.addEventListener('click', () => {
