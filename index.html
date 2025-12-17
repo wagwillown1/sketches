@@ -1,1 +1,67 @@
-home
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sketches | Home</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="top-nav">
+    <div class="brand"><a href="./index.html">Sketches</a></div>
+    <nav>
+      <a href="./index.html" class="active">Home</a>
+      <a href="./ideas.html">Ideas</a>
+      <a href="./tools.html">Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Creative sandbox</p>
+        <h1>Sketches</h1>
+        <p class="subtitle">Quick drafts and tests</p>
+        <div class="hero-actions">
+          <a class="button primary" href="./ideas.html">Browse ideas</a>
+          <a class="button ghost" href="./tools.html#margin-calculator">Margin calculator</a>
+          <a class="button ghost" href="#featured">Featured</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="gradient-card"></div>
+      </div>
+    </section>
+
+    <section id="featured" class="card-section">
+      <div class="section-header">
+        <h2>Featured starters</h2>
+        <p>Jump into an idea draft or explore the full list.</p>
+      </div>
+      <div class="card-grid">
+        <a class="card" href="./ideas.html#idea-1">
+          <h3>Interface exploration</h3>
+          <p>Play with UI layouts, spacing, and motion.</p>
+          <span class="card-link">Open draft →</span>
+        </a>
+        <a class="card" href="./ideas.html#idea-4">
+          <h3>Content experiments</h3>
+          <p>Test headlines, tone, and structure for quick pages.</p>
+          <span class="card-link">Open draft →</span>
+        </a>
+        <a class="card" href="./ideas.html#idea-7">
+          <h3>Microinteractions</h3>
+          <p>Prototype hover states, toggles, and small flows.</p>
+          <span class="card-link">Open draft →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Sketches — lightweight space for drafting ideas.</p>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

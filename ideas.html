@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sketches | Ideas</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="top-nav">
+    <div class="brand"><a href="./index.html">Sketches</a></div>
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./ideas.html" class="active">Ideas</a>
+      <a href="./tools.html">Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div>
+        <p class="eyebrow">Idea bank</p>
+        <h1>Drafts to explore</h1>
+        <p class="subtitle">Search, skim, and expand ideas to guide quick experiments.</p>
+      </div>
+      <div class="search-box">
+        <label class="sr-only" for="idea-search">Search ideas</label>
+        <input id="idea-search" type="search" placeholder="Search ideas" aria-describedby="idea-search-help" />
+        <small id="idea-search-help">Filter by title or description.</small>
+      </div>
+    </section>
+
+    <section class="card-section">
+      <div class="card-grid idea-grid">
+        <article class="card idea-card" id="idea-1">
+          <h3 class="idea-title">UI layout lab</h3>
+          <p class="idea-description">Prototype dashboard layouts with flexible grids and spacing tokens for quick iteration.</p>
+          <button class="button secondary" type="button">Open</button>
+        </article>
+        <article class="card idea-card" id="idea-2">
+          <h3 class="idea-title">Component library</h3>
+          <p class="idea-description">Draft a minimal set of buttons, inputs, and cards to align on style and hierarchy.</p>
+          <button class="button secondary" type="button">Open</button>
+        </article>
+        <article class="card idea-card" id="idea-3">
+          <h3 class="idea-title">Onboarding flow</h3>
+          <p class="idea-description">Map a three-step welcome sequence with microcopy and illustration placeholders.</p>
+          <button class="button secondary" type="button">Open</button>
+        </article>
+        <article class="card idea-card" id="idea-4">
+          <h3 class="idea-title">Content blocks</h3>
+          <p class="idea-description">Experiment with hero text, supporting copy, and calls to action for landing pages.</p>
+          <button class="button secondary" type="button">Open</button>
+        </article>
+        <article class="card idea-card" id="idea-5">
+          <h3 class="idea-title">Data stories</h3>
+          <p class="idea-description">Visualize key metrics with simple charts, stats, and annotations for presentations.</p>
+          <button class="button secondary" type="button">Open</button>
+        </article>
+        <article class="card idea-card" id="idea-6">
+          <h3 class="idea-title">Voice and tone</h3>
+          <p class="idea-description">Test different writing styles for support articles, alerts, and product education.</p>
+          <button class="button secondary" type="button">Open</button>
+        </article>
+        <article class="card idea-card" id="idea-7">
+          <h3 class="idea-title">Microinteractions</h3>
+          <p class="idea-description">Sketch hover, press, and toggle patterns to capture motion ideas.</p>
+          <button class="button secondary" type="button">Open</button>
+        </article>
+        <article class="card idea-card" id="idea-8">
+          <h3 class="idea-title">Accessibility review</h3>
+          <p class="idea-description">Check color contrast, focus states, and keyboard flows to keep prototypes inclusive.</p>
+          <button class="button secondary" type="button">Open</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="card-section margin-calculator" id="margin-calculator">
+      <div class="section-header">
+        <h2>Margin calculator</h2>
+        <p>Enter a cost or sale price and a margin or profit percent to complete the rest. For a dedicated view, open it on the <a class="inline-link" href="./tools.html#margin-calculator">Tools page</a>.</p>
+      </div>
+      <div class="calculator-grid">
+        <label class="calc-field">
+          <span>Cost price</span>
+          <div class="input-wrap">
+            <span class="input-prefix">$</span>
+            <input id="cost-price" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+          </div>
+        </label>
+        <label class="calc-field">
+          <span>Sale price</span>
+          <div class="input-wrap">
+            <span class="input-prefix">$</span>
+            <input id="sale-price" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+          </div>
+        </label>
+        <label class="calc-field">
+          <span>Margin %</span>
+          <div class="input-wrap">
+            <input id="margin-percent" type="number" min="0" max="100" step="0.01" placeholder="0.00" inputmode="decimal" />
+            <span class="input-suffix">%</span>
+          </div>
+        </label>
+        <label class="calc-field">
+          <span>Profit %</span>
+          <div class="input-wrap">
+            <input id="profit-percent" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+            <span class="input-suffix">%</span>
+          </div>
+        </label>
+      </div>
+      <p class="calc-note">Margin % = Profit ÷ Sale price. Profit % = Profit ÷ Cost. Enter any two fields to calculate the rest.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Sketches — lightweight space for drafting ideas.</p>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
