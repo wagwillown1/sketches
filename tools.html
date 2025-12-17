@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sketches | Tools</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="top-nav">
+    <div class="brand"><a href="./index.html">Sketches</a></div>
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./ideas.html">Ideas</a>
+      <a href="./tools.html" class="active">Tools</a>
+    </nav>
+  </header>
+
+  <main class="tools-page">
+    <section class="page-hero">
+      <div>
+        <p class="eyebrow">Utilities</p>
+        <h1>Tools to speed up drafting</h1>
+        <p class="subtitle">Quick helpers for pricing, planning, and experimenting. Start with the margin calculator below.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#margin-calculator">Jump to calculator</a>
+          <a class="button ghost" href="./ideas.html">Back to ideas</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="gradient-card"></div>
+      </div>
+    </section>
+
+    <section class="card-section" aria-labelledby="tools-list">
+      <div class="section-header">
+        <h2 id="tools-list">Tools menu</h2>
+        <p>Browse available utilities. More experiments coming soon.</p>
+      </div>
+      <div class="card-grid">
+        <a class="card highlight" href="#margin-calculator">
+          <div class="chip">New</div>
+          <h3>Margin calculator</h3>
+          <p>Enter any price or percentage and instantly fill the other values as you type.</p>
+          <span class="card-link">Open tool →</span>
+        </a>
+        <div class="card muted">
+          <h3>More tools</h3>
+          <p>Placeholder tiles for future utilities. Got an idea? Drop it in the ideas list.</p>
+          <span class="card-link">Coming soon</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card-section margin-calculator" id="margin-calculator" aria-labelledby="margin-heading">
+      <div class="section-header">
+        <div class="badge-row">
+          <span class="pill">Live sync</span>
+          <span class="pill subtle">Bi-directional</span>
+        </div>
+        <h2 id="margin-heading">Margin calculator</h2>
+        <p>Type in any combination of cost, sale, margin%, or profit% and the rest will populate automatically.</p>
+      </div>
+      <div class="calculator-shell">
+        <div class="calculator-grid">
+          <label class="calc-field">
+            <span>Cost price</span>
+            <div class="input-wrap">
+              <span class="input-prefix">$</span>
+              <input id="cost-price" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+            </div>
+            <small class="field-hint">Supplier or production cost.</small>
+          </label>
+          <label class="calc-field">
+            <span>Sale price</span>
+            <div class="input-wrap">
+              <span class="input-prefix">$</span>
+              <input id="sale-price" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+            </div>
+            <small class="field-hint">What the customer pays.</small>
+          </label>
+          <label class="calc-field">
+            <span>Margin %</span>
+            <div class="input-wrap">
+              <input id="margin-percent" type="number" min="0" max="100" step="0.01" placeholder="0.00" inputmode="decimal" />
+              <span class="input-suffix">%</span>
+            </div>
+            <small class="field-hint">Profit ÷ sale price.</small>
+          </label>
+          <label class="calc-field">
+            <span>Profit %</span>
+            <div class="input-wrap">
+              <input id="profit-percent" type="number" min="0" step="0.01" placeholder="0.00" inputmode="decimal" />
+              <span class="input-suffix">%</span>
+            </div>
+            <small class="field-hint">Profit ÷ cost.</small>
+          </label>
+        </div>
+        <div class="calc-summary">
+          <div class="summary-item">
+            <span class="label">Profit</span>
+            <span class="value" id="profit-amount">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">Inputs</span>
+            <span class="value" id="input-status">Waiting for two values…</span>
+          </div>
+        </div>
+        <p class="calc-note">Tip: enter a cost and desired margin to instantly see the sale price, or enter a sale price and margin to see how low you can go on cost.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Sketches — lightweight space for drafting ideas.</p>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -13,6 +13,12 @@ A minimal two-page static site for drafting and testing ideas.
 2. In GitHub, open **Settings → Pages**.
 3. Under **Source**, choose the `main` branch and the **root** folder, then click **Save**.
 4. Wait for the green **Pages** banner to show the live URL (usually `https://<username>.github.io/sketches/`).
+5. Visit the URL to confirm `index.html`, `ideas.html`, and `tools.html` load correctly. All links and assets use relative paths, so the site works from the `/sketches` subpath.
+
+### Viewing the margin calculator live
+
+- Go directly to `https://<username>.github.io/sketches/tools.html#margin-calculator` (replace `<username>` with your GitHub account).
+- From the home page, use the **Margin calculator** button in the hero to jump to the calculator on the Tools page.
 5. Visit the URL to confirm both `index.html` and `ideas.html` load correctly. All links and assets use relative paths, so the site works from the `/sketches` subpath.
 
 ## Updating the live site
