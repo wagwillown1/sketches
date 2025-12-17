@@ -31,7 +31,7 @@ function initMarginCalculator() {
 
   const formatMoney = (value) => (Number.isFinite(value) ? `$${value.toFixed(2)}` : '—');
 
-  const toNumber = (input) => {
+  const parseValue = (input) => {
     if (!input) return null;
     const value = parseFloat(input.value);
     return Number.isFinite(value) ? value : null;
@@ -47,64 +47,6 @@ function initMarginCalculator() {
     input.value = value.toFixed(2);
   };
 
-  const computeValues = ({ cost, sale, margin, profitPct }, defaultStatus) => {
-    let profit = null;
-    let status = defaultStatus;
-
-    const marginInvalid = margin !== null && margin > 100;
-    const knownCount = [cost, sale, margin, profitPct].filter((value) => value !== null).length;
-
-    if (!marginInvalid && knownCount >= 2) {
-      if (cost !== null && sale !== null) {
-        profit = sale - cost;
-        margin = sale !== 0 ? (profit / sale) * 100 : null;
-        profitPct = cost !== 0 ? (profit / cost) * 100 : null;
-        status = 'Calculated from cost + sale.';
-      } else if (cost !== null && margin !== null) {
-        const divisor = 1 - margin / 100;
-        if (divisor > 0) {
-          sale = cost / divisor;
-          profit = sale - cost;
-          profitPct = cost !== 0 ? (profit / cost) * 100 : null;
-          status = 'Calculated from cost + margin%.';
-        } else {
-          status = 'Add a sale price or use a margin below 100% when only cost is provided.';
-        }
-      } else if (sale !== null && margin !== null) {
-        cost = sale * (1 - margin / 100);
-        profit = sale - cost;
-        profitPct = cost !== 0 ? (profit / cost) * 100 : null;
-        status = 'Calculated from sale + margin%.';
-      } else if (cost !== null && profitPct !== null) {
-        sale = cost * (1 + profitPct / 100);
-        profit = sale - cost;
-        margin = sale !== 0 ? (profit / sale) * 100 : null;
-        status = 'Calculated from cost + profit%.';
-      } else if (sale !== null && profitPct !== null) {
-        cost = sale / (1 + profitPct / 100);
-        profit = sale - cost;
-        margin = sale !== 0 ? (profit / sale) * 100 : null;
-        status = 'Calculated from sale + profit%.';
-      }
-    }
-
-    if (marginInvalid) {
-      status = 'Margin must be at or below 100% to compute.';
-      profit = null;
-    }
-
-    const finiteOrNull = (value) => (Number.isFinite(value) ? value : null);
-
-    return {
-      cost: finiteOrNull(cost),
-      sale: finiteOrNull(sale),
-      margin: finiteOrNull(margin),
-      profitPct: finiteOrNull(profitPct),
-      profit: finiteOrNull(profit),
-      status,
-    };
-  };
-
   calculators.forEach((calculator) => {
     const costInput = calculator.querySelector('[data-field="cost"]');
     const saleInput = calculator.querySelector('[data-field="sale"]');
@@ -116,33 +58,70 @@ function initMarginCalculator() {
     const defaultStatus = statusLabel?.textContent?.trim() ||
       'Enter any two fields to calculate the rest.';
 
-    const update = (trigger) => {
-      const result = computeValues({
-        cost: toNumber(costInput),
-        sale: toNumber(saleInput),
-        margin: toNumber(marginInput),
-        profitPct: toNumber(profitInput),
-      }, defaultStatus);
+    const calculate = (trigger) => {
+      let cost = parseValue(costInput);
+      let sale = parseValue(saleInput);
+      let margin = parseValue(marginInput);
+      let profitPct = parseValue(profitInput);
+      let profit = null;
+      let status = defaultStatus;
 
-      setValue(costInput, result.cost, { skipIfActive: trigger === costInput });
-      setValue(saleInput, result.sale, { skipIfActive: trigger === saleInput });
-      setValue(marginInput, result.margin, { skipIfActive: trigger === marginInput });
-      setValue(profitInput, result.profitPct, { skipIfActive: trigger === profitInput });
+      const knownCount = [cost, sale, margin, profitPct].filter((value) => value !== null).length;
+      const marginValid = margin === null || margin <= 100;
+
+      if (knownCount >= 2 && marginValid) {
+        if (cost !== null && sale !== null) {
+          profit = sale - cost;
+          margin = sale !== 0 ? (profit / sale) * 100 : null;
+          profitPct = cost !== 0 ? (profit / cost) * 100 : null;
+          status = 'Calculated from cost + sale.';
+        } else if (cost !== null && margin !== null) {
+          sale = cost / (1 - margin / 100);
+          profit = sale - cost;
+          profitPct = cost !== 0 ? (profit / cost) * 100 : null;
+          status = 'Calculated from cost + margin%.';
+        } else if (sale !== null && margin !== null) {
+          cost = sale * (1 - margin / 100);
+          profit = sale - cost;
+          profitPct = cost !== 0 ? (profit / cost) * 100 : null;
+          status = 'Calculated from sale + margin%.';
+        } else if (cost !== null && profitPct !== null) {
+          sale = cost * (1 + profitPct / 100);
+          profit = sale - cost;
+          margin = sale !== 0 ? (profit / sale) * 100 : null;
+          status = 'Calculated from cost + profit%.';
+        } else if (sale !== null && profitPct !== null) {
+          cost = sale / (1 + profitPct / 100);
+          profit = sale - cost;
+          margin = sale !== 0 ? (profit / sale) * 100 : null;
+          status = 'Calculated from sale + profit%.';
+        }
+      }
+
+      if (!marginValid) {
+        status = 'Margin must be at or below 100% to compute.';
+        profit = null;
+      }
+
+      setValue(costInput, cost, { skipIfActive: trigger === costInput });
+      setValue(saleInput, sale, { skipIfActive: trigger === saleInput });
+      setValue(marginInput, margin, { skipIfActive: trigger === marginInput });
+      setValue(profitInput, profitPct, { skipIfActive: trigger === profitInput });
 
       if (profitAmount) {
-        profitAmount.textContent = formatMoney(result.profit);
+        profitAmount.textContent = formatMoney(profit);
       }
 
       if (statusLabel) {
-        statusLabel.textContent = result.status;
+        statusLabel.textContent = status;
       }
     };
 
     [costInput, saleInput, marginInput, profitInput].forEach((input) => {
-      input?.addEventListener('input', () => update(input));
+      input?.addEventListener('input', () => calculate(input));
     });
 
-    update();
+    calculate();
   });
 }
 
