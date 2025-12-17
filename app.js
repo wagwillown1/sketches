@@ -54,6 +54,7 @@ function initMarginCalculator() {
     const profitInput = calculator.querySelector('[data-field="profit"]');
     const profitAmount = calculator.querySelector('[data-output="profit-amount"]');
     const statusLabel = calculator.querySelector('[data-output="input-status"]');
+    const resetButton = calculator.querySelector('[data-action="reset-calculator"]');
 
     const defaultStatus = statusLabel?.textContent?.trim() ||
       'Enter any two fields to calculate the rest.';
@@ -65,36 +66,97 @@ function initMarginCalculator() {
       let profitPct = parseValue(profitInput);
       let profit = null;
       let status = defaultStatus;
+      let computed = false;
 
-      const knownCount = [cost, sale, margin, profitPct].filter((value) => value !== null).length;
       const marginValid = margin === null || margin <= 100;
 
-      if (knownCount >= 2 && marginValid) {
-        if (cost !== null && sale !== null) {
-          profit = sale - cost;
-          margin = sale !== 0 ? (profit / sale) * 100 : null;
-          profitPct = cost !== 0 ? (profit / cost) * 100 : null;
-          status = 'Calculated from cost + sale.';
-        } else if (cost !== null && margin !== null) {
-          sale = cost / (1 - margin / 100);
-          profit = sale - cost;
-          profitPct = cost !== 0 ? (profit / cost) * 100 : null;
-          status = 'Calculated from cost + margin%.';
-        } else if (sale !== null && margin !== null) {
-          cost = sale * (1 - margin / 100);
-          profit = sale - cost;
-          profitPct = cost !== 0 ? (profit / cost) * 100 : null;
-          status = 'Calculated from sale + margin%.';
-        } else if (cost !== null && profitPct !== null) {
-          sale = cost * (1 + profitPct / 100);
-          profit = sale - cost;
-          margin = sale !== 0 ? (profit / sale) * 100 : null;
-          status = 'Calculated from cost + profit%.';
-        } else if (sale !== null && profitPct !== null) {
-          cost = sale / (1 + profitPct / 100);
-          profit = sale - cost;
-          margin = sale !== 0 ? (profit / sale) * 100 : null;
-          status = 'Calculated from sale + profit%.';
+      const computeFromCostAndSale = () => {
+        profit = sale - cost;
+        margin = sale !== 0 ? (profit / sale) * 100 : null;
+        profitPct = cost !== 0 ? (profit / cost) * 100 : null;
+        status = 'Calculated from cost + sale.';
+        computed = true;
+      };
+
+      const computeFromCostAndMargin = () => {
+        sale = cost / (1 - margin / 100);
+        profit = sale - cost;
+        profitPct = cost !== 0 ? (profit / cost) * 100 : null;
+        status = 'Calculated from cost + margin%.';
+        computed = true;
+      };
+
+      const computeFromSaleAndMargin = () => {
+        cost = sale * (1 - margin / 100);
+        profit = sale - cost;
+        profitPct = cost !== 0 ? (profit / cost) * 100 : null;
+        status = 'Calculated from sale + margin%.';
+        computed = true;
+      };
+
+      const computeFromCostAndProfitPct = () => {
+        sale = cost * (1 + profitPct / 100);
+        profit = sale - cost;
+        margin = sale !== 0 ? (profit / sale) * 100 : null;
+        status = 'Calculated from cost + profit%.';
+        computed = true;
+      };
+
+      const computeFromSaleAndProfitPct = () => {
+        cost = sale / (1 + profitPct / 100);
+        profit = sale - cost;
+        margin = sale !== 0 ? (profit / sale) * 100 : null;
+        status = 'Calculated from sale + profit%.';
+        computed = true;
+      };
+
+      if (marginValid) {
+        if (!computed && trigger === marginInput && margin !== null) {
+          if (cost !== null) {
+            computeFromCostAndMargin();
+          } else if (sale !== null) {
+            computeFromSaleAndMargin();
+          }
+        }
+
+        if (!computed && trigger === profitInput && profitPct !== null) {
+          if (cost !== null) {
+            computeFromCostAndProfitPct();
+          } else if (sale !== null) {
+            computeFromSaleAndProfitPct();
+          }
+        }
+
+        if (!computed && trigger === costInput && cost !== null) {
+          if (sale !== null) {
+            computeFromCostAndSale();
+          } else if (margin !== null) {
+            computeFromCostAndMargin();
+          } else if (profitPct !== null) {
+            computeFromCostAndProfitPct();
+          }
+        }
+
+        if (!computed && trigger === saleInput && sale !== null) {
+          if (cost !== null) {
+            computeFromCostAndSale();
+          } else if (margin !== null) {
+            computeFromSaleAndMargin();
+          } else if (profitPct !== null) {
+            computeFromSaleAndProfitPct();
+          }
+        }
+
+        if (!computed && cost !== null && sale !== null) {
+          computeFromCostAndSale();
+        } else if (!computed && cost !== null && margin !== null) {
+          computeFromCostAndMargin();
+        } else if (!computed && sale !== null && margin !== null) {
+          computeFromSaleAndMargin();
+        } else if (!computed && cost !== null && profitPct !== null) {
+          computeFromCostAndProfitPct();
+        } else if (!computed && sale !== null && profitPct !== null) {
+          computeFromSaleAndProfitPct();
         }
       }
 
@@ -118,7 +180,17 @@ function initMarginCalculator() {
     };
 
     [costInput, saleInput, marginInput, profitInput].forEach((input) => {
-      input?.addEventListener('input', () => calculate(input));
+      ['input', 'keyup'].forEach((eventName) => {
+        input?.addEventListener(eventName, () => calculate(input));
+      });
+    });
+
+    resetButton?.addEventListener('click', () => {
+      [costInput, saleInput, marginInput, profitInput].forEach((input) => {
+        if (input) input.value = '';
+      });
+      calculate();
+      costInput?.focus();
     });
 
     calculate();
