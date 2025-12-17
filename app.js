@@ -1,4 +1,5 @@
 function initIdeaInteractions() {
+document.addEventListener('DOMContentLoaded', () => {
   const ideaGrid = document.querySelector('.idea-grid');
   if (!ideaGrid) return;
 

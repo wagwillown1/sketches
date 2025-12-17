@@ -20,3 +20,7 @@ A minimal two-page static site for drafting and testing ideas.
 1. Make changes locally and commit them.
 2. Push to the `main` branch.
 3. GitHub Pages will automatically rebuild; refresh the live URL to see updates.
+1. Push to the `main` branch.
+2. In GitHub, go to **Settings → Pages**.
+3. Select the `main` branch and the **root** folder, then save.
+4. Your site will be available at the GitHub Pages URL (works from the `/sketches` subpath thanks to relative links).
